@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using GigHub.Models;
+using GigHub.ViewModels;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace GigHub.Controllers
@@ -9,9 +8,20 @@ namespace GigHub.Controllers
     public class GigsController : Controller
     {
         // GET: Gigs
+        private ApplicationDbContext _context;
+        public GigsController()
+        {
+            _context = new ApplicationDbContext();
+        }
+
+
         public ActionResult Create()
         {
-            return View();
+            var viewModel = new GigFormViewModel
+            {
+                Genres = _context.Genres.ToList()
+            };
+            return View(viewModel);
         }
     }
 }
